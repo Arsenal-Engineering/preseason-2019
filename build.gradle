@@ -1,0 +1,97 @@
+import jaci.openrio.gradle.GradleRIOPlugin
+import jaci.openrio.gradle.frc.FRCJavaArtifact
+import jaci.openrio.gradle.frc.RoboRIO
+
+// Applying plugins to Gradle
+plugins {
+    // We use Java
+    id "java"
+    // Allow for the use of the IntelliJ IDEA IDE
+    id "idea"
+    // Depend on GradleRIO
+    id "jaci.openrio.gradle.GradleRIO" version "2018.03.06"
+    // Depend on Kotlin for the JVM
+    id 'org.jetbrains.kotlin.jvm' version "1.2.20"
+    // Depend on Dokka for documentation management
+    id "org.jetbrains.dokka" version "0.9.15"
+    // Depend on SSH plugin for file dropping support
+    id 'org.hidetake.ssh' version "2.9.0"
+}
+
+// Definitions
+def TEAM = 6223
+def ROBOT_CLASS = "frc.team6223.robot.Robot"
+
+// Define the script targets (RoboRIO) and artifacts (deployable files)
+deploy {
+    targets {
+        target("roborio", RoboRIO) {
+            team = TEAM
+        }
+    }
+    artifacts {
+        artifact('frcKotlin', FRCJavaArtifact) {
+            targets << "roborio"
+        }
+    }
+}
+
+// Dependency Repositories
+repositories {
+    mavenCentral()
+}
+
+// Defining dependencies
+// Robot: WPILib, CTRE Phoenix (Talon SRX), NavX, Pathfinder
+// Kotlin: Kotlin StdLibrary, Kotlin Reflect
+// Testing: KotlinTest
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    compile "org.jetbrains.kotlin:kotlin-reflect"
+
+    testCompile group: 'io.kotlintest', name: 'kotlintest', version: '2.0.7'
+
+    compile ctre()
+    compile wpilib()
+    compile navx()
+    compile pathfinder()
+}
+
+// Setting up jar file: generating fat jar, and adding WPILib manifest settings
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest GradleRIOPlugin.javaManifest(ROBOT_CLASS)
+}
+
+// SSH tasks and configuration
+remotes {
+    rio {
+        host = 'roboRIO-6223-frc.local'
+        user = 'lvuser'
+        knownHosts = allowAnyHosts
+    }
+}
+
+task('copyResources') {
+    doLast {
+        ssh.run {
+            session(remotes.rio) {
+                execute 'mkdir ~/6223_resources', ignoreError: true
+                execute 'mkdir ~/logs', ignoreError: true
+                put from: fileTree('src/main/resources'), into: './6223_resources/'
+                execute 'chmod -R 755 ~/6223_resources'
+                execute ". /etc/profile.d/natinst-path.sh; /usr/local/frc/bin/frcKillRobot.sh -t -r", ignoreError: true
+            }
+        }
+    }
+}
+
+// Setting a task to generate the wrapper files
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.4'
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/javadoc"
+}
