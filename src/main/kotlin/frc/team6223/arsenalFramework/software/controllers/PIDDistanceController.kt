@@ -28,17 +28,17 @@ class PIDDistanceController(private val dist: Double): DriveController {
     private val pidController = PIDFController(pidfConstants, 0.0)
 
     override fun calculateMotorOutput(controllerInput: ControllerInput): DriveControllerOutput {
-        val out = this.pidController.runController(controllerInput.leftEncoder.numericValue(DistanceUnits.FEET))
+        val out = this.pidController.runController(controllerInput.leftDriveDistance.numericValue(DistanceUnits.FEET))
         // todo: separate left and right rates
         return DriveControllerOutput(MotorControlMode.PIDDistance, out, out)
     }
 
-    override fun start(leftInitial: Int, rightInitial: Int) {
+    override fun startController(leftInitial: Distance, rightInitial: Distance) {
         println("Moving $dist ft")
         pidController.setPoint = dist
     }
 
-    override fun stop() {
+    override fun stopController() {
         if (!pidController.isFinished) {
             println("Did not complete movement, currentError is: " + pidController.currentError)
         } else {
@@ -46,7 +46,7 @@ class PIDDistanceController(private val dist: Double): DriveController {
         }
     }
 
-    override fun isFinished(): Boolean {
+    override fun isMovementCompleted(): Boolean {
         return pidController.isFinished
     }
 

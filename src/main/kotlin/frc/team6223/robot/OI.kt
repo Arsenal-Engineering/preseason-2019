@@ -2,16 +2,10 @@ package frc.team6223.robot
 
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.buttons.JoystickButton
-import frc.team6223.arsenalFramework.hardware.ArsenalLaunchpad
 import frc.team6223.arsenalFramework.operator.ArsenalFlightStick
 import frc.team6223.arsenalFramework.operator.ArsenalJoystick
 import frc.team6223.arsenalFramework.operator.ArsenalOperatorInterface
-import frc.team6223.robot.commands.ClawActuationCommand
-import frc.team6223.robot.commands.StageThreeMove
-import frc.team6223.robot.commands.WinchActuationCommand
 import frc.team6223.robot.commands.StageTwoMove
-import frc.team6223.robot.conf.JOYSTICK_PORT
-import frc.team6223.robot.subsystem.Claw
 import frc.team6223.robot.subsystem.Climber
 
 
@@ -22,7 +16,7 @@ class OI(/*claw: Claw,*/ climber: Climber): ArsenalOperatorInterface {
         get() = listOf(primaryJoystick)
 
     // 14 extend winch, 15 shorten
-    private val launchpad: ArsenalLaunchpad = ArsenalLaunchpad(1)
+    private val launchpad: Joystick = Joystick(1)
 
     init {
         // Place anything to start the controllers here

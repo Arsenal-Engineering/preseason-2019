@@ -14,15 +14,15 @@ class NoMovementController: DriveController {
         return DriveControllerOutput(MotorControlMode.VoltagePercentOut, 0.0, 0.0)
     }
 
-    override fun start(leftInitial: Int, rightInitial: Int) {
+    override fun startController(leftInitial: Distance, rightInitial: Distance) {
         println("No Movement Controller enabled")
     }
 
-    override fun stop() {
+    override fun stopController() {
         println("Disabling No Movement Controller")
     }
 
-    override fun isFinished(): Boolean {
+    override fun isMovementCompleted(): Boolean {
         return false
     }
 

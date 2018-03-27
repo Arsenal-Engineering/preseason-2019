@@ -1,6 +1,6 @@
 package frc.team6223.arsenalFramework.software
 
-import frc.team6223.arsenalFramework.hardware.currentTimeSec
+import frc.team6223.arsenalFramework.hardware.TimeUtilities
 import frc.team6223.arsenalFramework.software.units.Time
 import frc.team6223.arsenalFramework.software.units.TimeUnits
 
@@ -79,8 +79,8 @@ class PIDFController(constants: PIDFConstants, target: Double) {
 
         // calculate constants for this iteration of the loop
         this.currentError = setPoint - current
-        val deltaTime = currentTimeSec() - lastTime
-        this.lastTime = currentTimeSec()
+        val deltaTime = TimeUtilities.currentTimeSec() - lastTime
+        this.lastTime = TimeUtilities.currentTimeSec()
 
         val calculated: Double = this.constants.kD * (currentError - this.lastError / deltaTime.numericValue(TimeUnits.SECONDS))
         val derivative = if (calculated != 0.0 && calculated != Double.NaN) {

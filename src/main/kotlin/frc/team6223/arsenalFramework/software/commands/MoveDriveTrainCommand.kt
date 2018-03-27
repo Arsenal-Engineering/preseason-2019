@@ -9,7 +9,7 @@ import frc.team6223.arsenalFramework.software.controllers.NoMovementController
  * A command that will move the drive train based on a provided [DriveController].
  *
  * @param controller The drive controller responsible for providing the output to the motor
- * @param driveSystem The [ArsenalDrive] responsible for moving currently
+ * @param driveSystem The [OldArsenalDrive] responsible for moving currently
  */
 class MoveDriveTrainCommand(
         private val controller: DriveController,
@@ -22,16 +22,16 @@ class MoveDriveTrainCommand(
 
     override fun start() {
         super.start()
-        driveSystem.driveMode = controller
+        driveSystem.driveController = controller
     }
 
     override fun end() {
-        driveSystem.driveMode = NoMovementController()
+        driveSystem.driveController = NoMovementController()
         driveSystem.driveMotors()
     }
 
     override fun interrupted() {
-        driveSystem.driveMode = NoMovementController()
+        driveSystem.driveController = NoMovementController()
         driveSystem.driveMotors()
     }
 
@@ -40,6 +40,6 @@ class MoveDriveTrainCommand(
     }
 
     override fun isFinished(): Boolean {
-        return controller.isFinished()
+        return controller.isMovementCompleted()
     }
 }

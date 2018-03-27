@@ -1,32 +1,23 @@
 package frc.team6223.robot
 
-import com.kauailabs.navx.frc.AHRS
 import edu.wpi.first.wpilibj.*
 import edu.wpi.first.wpilibj.command.Command
-import edu.wpi.first.wpilibj.command.Scheduler
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard
 import frc.team6223.arsenalFramework.drive.ArsenalDrive
 import frc.team6223.arsenalFramework.hardware.ArsenalNavXMicro
 import frc.team6223.arsenalFramework.hardware.ArsenalRobot
 import frc.team6223.arsenalFramework.hardware.motor.ArsenalTalon
 import frc.team6223.arsenalFramework.hardware.motor.ArsenalVictor
 import frc.team6223.arsenalFramework.operator.ArsenalOperatorInterface
-import frc.team6223.arsenalFramework.software.FullTrajectory
 import frc.team6223.arsenalFramework.software.commands.MoveDriveTrainCommand
 import frc.team6223.arsenalFramework.software.controllers.ArcadeDriveController
 import frc.team6223.arsenalFramework.software.controllers.ForceMovementController
-import frc.team6223.arsenalFramework.software.controllers.MotionProfileController
 import frc.team6223.arsenalFramework.software.controllers.NoMovementController
 import frc.team6223.arsenalFramework.software.units.*
 import frc.team6223.robot.auto.AutoUtilities
 import frc.team6223.robot.conf.LEFT_DRIVE_CONTROLLER
-import frc.team6223.robot.conf.PDP_CAN_ID
 import frc.team6223.robot.conf.RIGHT_DRIVE_CONTROLLER
-import frc.team6223.robot.subsystem.Claw
 import frc.team6223.robot.subsystem.Climber
-import jaci.pathfinder.Trajectory
-import jaci.pathfinder.Waypoint
 
 class Robot: ArsenalRobot(TimedRobot.DEFAULT_PERIOD, 0.05) {
 
@@ -41,7 +32,7 @@ class Robot: ArsenalRobot(TimedRobot.DEFAULT_PERIOD, 0.05) {
     //private val pdpSubsystem = PDP(PDP_CAN_ID)
     private val robotSideChooser = AutoUtilities.generateSendableChooser()
 
-    override fun injectAutonomousCommands(): SendableChooser<Command> {
+    override fun injectAutonomousChooser(): SendableChooser<Command> {
         val sendableChooser = SendableChooser<Command>()
         sendableChooser.addDefault(
                 "Move forward for 2 sec",
@@ -90,8 +81,8 @@ class Robot: ArsenalRobot(TimedRobot.DEFAULT_PERIOD, 0.05) {
         )
     }
 
-    override fun retrieveMotionProfiles(): List<FullTrajectory> {
-        return listOf()
+    override fun injectSendableChoosers() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun allocateOperatorInterface(preferences: Preferences): ArsenalOperatorInterface {

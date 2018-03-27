@@ -37,23 +37,23 @@ public class VelocityController implements DriveController {
     @NotNull
     @Override
     public DriveControllerOutput calculateMotorOutput(@NotNull ControllerInput controllerInput) {
-        double motorVal = pidfController.runController(controllerInput.getLeftEncoderRate().rescaleScalar(DistanceUnits.METERS, TimeUnits.SECONDS));
+        double motorVal = pidfController.runController(controllerInput.getLeftDriveVelocity().rescaleScalar(DistanceUnits.METERS, TimeUnits.SECONDS));
         // todo: separate left and right rates
         return new DriveControllerOutput(MotorControlMode.PIDVelocity, motorVal, motorVal);
     }
 
     @Override
-    public void start(@NotNull int leftInitial, @NotNull int rightInitial) {
+    public void startController(Distance leftInitial, Distance rightInitial) {
 
     }
 
     @Override
-    public void stop() {
+    public void stopController() {
 
     }
 
     @Override
-    public boolean isFinished() {
+    public boolean isMovementCompleted() {
         return pidfController.isFinished();
     }
 

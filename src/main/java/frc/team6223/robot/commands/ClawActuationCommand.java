@@ -2,7 +2,7 @@ package frc.team6223.robot.commands;
 
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.team6223.arsenalFramework.hardware.TimeKt;
+import frc.team6223.arsenalFramework.hardware.TimeUtilities;
 import frc.team6223.arsenalFramework.software.units.Time;
 import frc.team6223.arsenalFramework.software.units.TimeUnits;
 import frc.team6223.robot.subsystem.Claw;
@@ -24,7 +24,7 @@ public class ClawActuationCommand extends Command {
     @Override
     protected void execute() {
         super.execute();
-        if (commandStart.minus(TimeKt.currentTimeSec()).numericValue(TimeUnits.SECONDS) >= Claw.timeToOpenClaw) {
+        if (commandStart.minus(TimeUtilities.currentTimeSec()).numericValue(TimeUnits.SECONDS) >= Claw.timeToOpenClaw) {
             passedFiveSeconds = true;
         }
     }
@@ -44,7 +44,7 @@ public class ClawActuationCommand extends Command {
     @Override
     public synchronized void start() {
         super.start();
-        commandStart = TimeKt.currentTimeSec();
+        commandStart = TimeUtilities.currentTimeSec();
 		switch (actuation) {
             case OPEN:
                 clawSubsystem.openClaw();

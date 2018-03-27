@@ -1,11 +1,9 @@
 package frc.team6223.arsenalFramework.software.controllers
 
-import edu.wpi.first.wpilibj.Timer
-import edu.wpi.first.wpilibj.internal.HardwareTimer
 import frc.team6223.arsenalFramework.drive.ControllerInput
 import frc.team6223.arsenalFramework.drive.DriveController
 import frc.team6223.arsenalFramework.drive.DriveControllerOutput
-import frc.team6223.arsenalFramework.hardware.currentTimeSec
+import frc.team6223.arsenalFramework.hardware.TimeUtilities
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode
 import frc.team6223.arsenalFramework.software.units.Distance
 import frc.team6223.arsenalFramework.software.units.Time
@@ -20,17 +18,17 @@ class ForceMovementController(private val deltaTime: Time, private val leftMotor
         return DriveControllerOutput(MotorControlMode.VoltagePercentOut, leftMotorOut, rightMotorOut)
     }
 
-    override fun start(leftInitial: Int, rightInitial: Int) {
+    override fun startController(leftInitial: Distance, rightInitial: Distance) {
         println("Starting FMC")
-        startTime = currentTimeSec()
+        startTime = TimeUtilities.currentTimeSec()
     }
 
-    override fun stop() {
+    override fun stopController() {
         println("Stopping FMC")
     }
 
-    override fun isFinished(): Boolean {
-        return (currentTimeSec() - startTime).numericValue(TimeUnits.SECONDS) >= deltaTime.numericValue(TimeUnits.SECONDS)
+    override fun isMovementCompleted(): Boolean {
+        return (TimeUtilities.currentTimeSec() - startTime).numericValue(TimeUnits.SECONDS) >= deltaTime.numericValue(TimeUnits.SECONDS)
     }
 
     override fun dashboardPeriodic() {

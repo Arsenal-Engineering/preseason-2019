@@ -77,15 +77,15 @@ class ArcadeDriveController(private val joystick: Joystick, private val scaleFac
         return DriveControllerOutput(MotorControlMode.VoltagePercentOut, leftOut, rightOut)
     }
 
-    override fun start(leftInitial: Int, rightInitial: Int) {
+    override fun startController(leftInitial: Distance, rightInitial: Distance) {
         println("Starting Arcade Drive")
     }
 
-    override fun stop() {
+    override fun stopController() {
         println("Stopping Arcade Drive")
     }
 
-    override fun isFinished(): Boolean {
+    override fun isMovementCompleted(): Boolean {
         return false
     }
 
