@@ -6,7 +6,6 @@ import frc.team6223.arsenalFramework.drive.ControllerInput
 import frc.team6223.arsenalFramework.drive.DriveController
 import frc.team6223.arsenalFramework.drive.DriveControllerOutput
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode
-import frc.team6223.arsenalFramework.operator.ArsenalJoystick
 import frc.team6223.arsenalFramework.software.units.Distance
 
 /**

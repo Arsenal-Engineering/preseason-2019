@@ -2,18 +2,24 @@ package frc.team6223.robot
 
 import edu.wpi.first.wpilibj.Joystick
 import edu.wpi.first.wpilibj.buttons.JoystickButton
-import frc.team6223.arsenalFramework.operator.ArsenalFlightStick
-import frc.team6223.arsenalFramework.operator.ArsenalJoystick
 import frc.team6223.arsenalFramework.operator.ArsenalOperatorInterface
 import frc.team6223.robot.commands.StageTwoMove
 import frc.team6223.robot.subsystem.Climber
 
 
 class OI(/*claw: Claw,*/ climber: Climber): ArsenalOperatorInterface {
-    override val primaryJoystick: ArsenalJoystick
-        get() = ArsenalFlightStick(0, 0.15)
-    override val joysticks: List<ArsenalJoystick>
-        get() = listOf(primaryJoystick)
+
+    private val joystick = Joystick(0)
+
+    override fun getPrimaryJoystick(): Joystick {
+        return joystick
+    }
+
+    private val joyList = mutableListOf(primaryJoystick)
+
+    override fun getJoysticks(): MutableList<Joystick> {
+        return joyList
+    }
 
     // 14 extend winch, 15 shorten
     private val launchpad: Joystick = Joystick(1)
