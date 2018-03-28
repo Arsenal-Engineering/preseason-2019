@@ -1,12 +1,7 @@
-package frc.team6223.arsenalFramework.hardware.motor
+package frc.team6223.arsenalFramework.hardware.motor;
 
-/**
- * The supported control modes for all [ArsenalTalon]'s.
- *
- * If a method is labeled as Closed Loop, it _must_ still receive input. The reasoning behind marking something as
- * closed or open loop is for checking if the motor controller can be finished (closed-loop can be, open-loop cannot).
- */
-enum class MotorControlMode {
+
+public enum MotorControlMode {
     /**
      * Open Loop Voltage Percentage Out
      */
@@ -27,5 +22,6 @@ enum class MotorControlMode {
      * Closed Loop Motion Profiling (experimental!)
      */
     ExperimentalMotionProfiling,
+
 
 }

@@ -24,9 +24,9 @@ class Robot: ArsenalRobot(TimedRobot.DEFAULT_PERIOD, 0.05) {
     private val climberSubsystem = Climber(
             ArsenalTalon(3, false, false, false),
             ArsenalTalon(7, false, false, false)
-                    .also { it.addFollower(ArsenalVictor(9)) },
+                    .also { it.addFollower(ArsenalVictor(9, false)) },
             ArsenalTalon(4, false, false, false)
-                    .also { it.addFollower(ArsenalVictor(8)) }
+                    .also { it.addFollower(ArsenalVictor(8, false)) }
     )
     private lateinit var driveSubsystem: ArsenalDrive
     //private val pdpSubsystem = PDP(PDP_CAN_ID)
@@ -70,14 +70,8 @@ class Robot: ArsenalRobot(TimedRobot.DEFAULT_PERIOD, 0.05) {
         driveSubsystem = ArsenalDrive(
                 NoMovementController(),
                 ArsenalNavXMicro(),
-                ArsenalTalon(LEFT_DRIVE_CONTROLLER, true,
-                        startingSensorPhase = true,
-                        startInverted = false,
-                        invertSensorOutput = false),
-                ArsenalTalon(RIGHT_DRIVE_CONTROLLER, true,
-                        startingSensorPhase = true,
-                        startInverted = true,
-                        invertSensorOutput = false)
+                ArsenalTalon(LEFT_DRIVE_CONTROLLER, true, true, false, false),
+                ArsenalTalon(RIGHT_DRIVE_CONTROLLER, true, true, true, false)
         )
     }
 

@@ -10,8 +10,8 @@ public class TeleopUtilities {
 
     public static void putValuesOnDash(ArsenalTalon left, ArsenalTalon right, AHRS navX)
     {
-        SmartDashboard.putBoolean("Inverted Left", left.getInverted());
-        SmartDashboard.putBoolean("Inverted Right", right.getInverted());
+        SmartDashboard.putBoolean("Inverted Left", left.isInverted());
+        SmartDashboard.putBoolean("Inverted Right", right.isInverted());
         SmartDashboard.putString("Distance Left", left.getPosition().toString());
         SmartDashboard.putString("Distance Right", right.getPosition().toString());
         SmartDashboard.putString("Velocity Left", left.getVelocity().toString());
