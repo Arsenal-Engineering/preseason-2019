@@ -84,7 +84,7 @@ class Robot: ArsenalRobot(TimedRobot.DEFAULT_PERIOD, 0.05) {
     }
 
     override fun setTeleoperatedCommand() {
-        MoveDriveTrainCommand(ArcadeDriveController(operatorInterface.primaryJoystick), driveSubsystem).start()
+        MoveDriveTrainCommand(ArcadeDriveController(operatorInterface.primaryJoystick, 1.0), driveSubsystem).start()
     }
 
     override fun autonomousInit() {
