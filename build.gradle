@@ -30,7 +30,7 @@ deploy {
         }
     }
     artifacts {
-        artifact('frcKotlin', FRCJavaArtifact) {
+        artifact('frcJava', FRCJavaArtifact) {
             targets << "roborio"
         }
     }

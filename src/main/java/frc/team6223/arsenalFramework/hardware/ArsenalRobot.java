@@ -12,8 +12,8 @@ import frc.team6223.arsenalFramework.operator.ArsenalOperatorInterface;
 public abstract class ArsenalRobot extends TimedRobot {
 
     private final double updaterPeriod;
-    private ArsenalOperatorInterface operatorInterface;
-    private SendableChooser<Command> autonomousChooser;
+    protected ArsenalOperatorInterface operatorInterface;
+    protected SendableChooser<Command> autonomousChooser;
 
     public ArsenalRobot(double robotPeriod, double updaterPeriod) {
         super.setPeriod(robotPeriod);
