@@ -1,9 +1,9 @@
 package frc.team6223.arsenalFramework.software.units;
 
 
-import java.util.Objects;
+import frc.team6223.robot.RobotMap;
 
-import static frc.team6223.robot.conf.WheelKt.wheelCircumference;
+import java.util.Objects;
 
 
 public class Distance extends Unit<DistanceUnits> {
@@ -80,6 +80,6 @@ public class Distance extends Unit<DistanceUnits> {
     }
 
     public static Distance convertMagPulseToDistance(double magPulse) {
-        return new Distance(((magPulse / 4096) * wheelCircumference), DistanceUnits.INCHES);
+        return new Distance(((magPulse / 4096) * RobotMap.wheelCircumference), DistanceUnits.INCHES);
     }
 }

@@ -8,10 +8,9 @@ plugins {
     id "java"
     // Allow for the use of the IntelliJ IDEA IDE
     id "idea"
+    // Allow for the use of the Eclipse IDE (ew)
     // Depend on GradleRIO
     id "jaci.openrio.gradle.GradleRIO" version "2018.03.06"
-    // Depend on Kotlin for the JVM
-    id 'org.jetbrains.kotlin.jvm' version "1.2.20"
     // Depend on SSH plugin for file dropping support
     id 'org.hidetake.ssh' version "2.9.0"
 }
@@ -42,23 +41,25 @@ repositories {
 // Defining dependencies
 // Robot: WPILib, CTRE Phoenix (Talon SRX), NavX, Pathfinder
 // Kotlin: Kotlin StdLibrary, Kotlin Reflect
-// Testing: KotlinTest
+// Testing: JUnit 5
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-    compile "org.jetbrains.kotlin:kotlin-reflect"
-
-    testCompile group: 'io.kotlintest', name: 'kotlintest', version: '2.0.7'
+    testCompile 'org.assertj:assertj-core:3.9.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.0'
 
     compile ctre()
     compile wpilib()
     compile navx()
-    compile pathfinder()
 }
 
 // Setting up jar file: generating fat jar, and adding WPILib manifest settings
 jar {
     from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
     manifest GradleRIOPlugin.javaManifest(ROBOT_CLASS)
+}
+
+test {
+    useJUnitPlatform()
 }
 
 // SSH tasks and configuration
@@ -86,5 +87,5 @@ task('copyResources') {
 
 // Setting a task to generate the wrapper files
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.4'
+    gradleVersion = '4.6'
 }

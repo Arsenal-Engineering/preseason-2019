@@ -11,7 +11,6 @@ import frc.team6223.arsenalFramework.software.pid.PIDFController;
 import frc.team6223.arsenalFramework.software.units.Distance;
 import frc.team6223.arsenalFramework.software.units.DistanceUnits;
 import frc.team6223.arsenalFramework.software.units.TimeUnits;
-import org.jetbrains.annotations.NotNull;
 
 
 public class VelocityController implements DriveController {
@@ -34,9 +33,8 @@ public class VelocityController implements DriveController {
         return pidfController;
     }
 
-    @NotNull
     @Override
-    public DriveControllerOutput calculateMotorOutput(@NotNull ControllerInput controllerInput) {
+    public DriveControllerOutput calculateMotorOutput(ControllerInput controllerInput) {
         double motorVal = pidfController.runController(controllerInput.getLeftDriveVelocity().rescaleScalar(DistanceUnits.METERS, TimeUnits.SECONDS));
         // todo: separate left and right rates
         return new DriveControllerOutput(MotorControlMode.PIDVelocity, motorVal, motorVal);
