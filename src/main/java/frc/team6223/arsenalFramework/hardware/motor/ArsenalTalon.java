@@ -55,9 +55,9 @@ public class ArsenalTalon implements ArsenalCANMotorController {
 
     public Distance getPosition() {
         if (invertedSensorOutput) {
-            return Distance.Companion.convertMagPulseToDistance(-this.internalMotorController.getSelectedSensorPosition(0));
+            return Distance.convertMagPulseToDistance(-this.internalMotorController.getSelectedSensorPosition(0));
         } else {
-            return Distance.Companion.convertMagPulseToDistance(this.internalMotorController.getSelectedSensorPosition(0));
+            return Distance.convertMagPulseToDistance(this.internalMotorController.getSelectedSensorPosition(0));
         }
     }
 
@@ -70,7 +70,7 @@ public class ArsenalTalon implements ArsenalCANMotorController {
     }
 
     public Velocity getVelocity() {
-        return Velocity.Companion.convertMagPulseRateToVelocity(this.internalMotorController.getSelectedSensorVelocity(0));
+        return Velocity.convertMagPulseRateToVelocity(this.internalMotorController.getSelectedSensorVelocity(0));
     }
 
     @Override
@@ -89,7 +89,7 @@ public class ArsenalTalon implements ArsenalCANMotorController {
     public void dashboardPeriodic() {
         SmartDashboard.putNumber("Talon " + this.talonId + " Position", getPosition().numericValue(DistanceUnits.FEET));
         SmartDashboard.putNumber("Talon " + this.talonId + " Velocity (ft/sec)",
-          getVelocity().numericValue(new RateScaleFactor<>(DistanceUnits.FEET, TimeUnits.SECONDS)));
+          getVelocity().numericValue(new RateScaleUnit<>(DistanceUnits.FEET, TimeUnits.SECONDS)));
         SmartDashboard.putBoolean("Talon " + this.talonId + " Inverted", this.internalMotorController.getInverted());
         SmartDashboard.putString("Talon " + this.talonId + " MCM", internalControlMode.toString());
     }
