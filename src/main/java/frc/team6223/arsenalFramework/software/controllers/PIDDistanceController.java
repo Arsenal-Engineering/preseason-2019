@@ -6,8 +6,8 @@ import frc.team6223.arsenalFramework.drive.ControllerInput;
 import frc.team6223.arsenalFramework.drive.DriveController;
 import frc.team6223.arsenalFramework.drive.DriveControllerOutput;
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode;
-import frc.team6223.arsenalFramework.software.PIDFConstants;
-import frc.team6223.arsenalFramework.software.PIDFController;
+import frc.team6223.arsenalFramework.software.pid.PIDFConstants;
+import frc.team6223.arsenalFramework.software.pid.PIDFController;
 import frc.team6223.arsenalFramework.software.units.Distance;
 import frc.team6223.arsenalFramework.software.units.DistanceUnits;
 

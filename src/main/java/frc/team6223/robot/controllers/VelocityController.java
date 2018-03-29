@@ -6,8 +6,8 @@ import frc.team6223.arsenalFramework.drive.ControllerInput;
 import frc.team6223.arsenalFramework.drive.DriveController;
 import frc.team6223.arsenalFramework.drive.DriveControllerOutput;
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode;
-import frc.team6223.arsenalFramework.software.PIDFConstants;
-import frc.team6223.arsenalFramework.software.PIDFController;
+import frc.team6223.arsenalFramework.software.pid.PIDFConstants;
+import frc.team6223.arsenalFramework.software.pid.PIDFController;
 import frc.team6223.arsenalFramework.software.units.Distance;
 import frc.team6223.arsenalFramework.software.units.DistanceUnits;
 import frc.team6223.arsenalFramework.software.units.TimeUnits;
@@ -61,9 +61,9 @@ public class VelocityController implements DriveController {
     public void dashboardPeriodic() {
         SmartDashboard.putString("Current Controller", "VelocityController");
         SmartDashboard.putNumber("Velocity Target", velocityTarget);
-        SmartDashboard.putNumber("Current Controller kP", pidfConstants.component1());
-        SmartDashboard.putNumber("Current Controller kI", pidfConstants.component2());
-        SmartDashboard.putNumber("Current Controller kD", pidfConstants.component3());
-        SmartDashboard.putNumber("Current Controller kF", pidfConstants.component4());
+        SmartDashboard.putNumber("Current Controller kP", pidfConstants.getkP());
+        SmartDashboard.putNumber("Current Controller kI", pidfConstants.getkI());
+        SmartDashboard.putNumber("Current Controller kD", pidfConstants.getkD());
+        SmartDashboard.putNumber("Current Controller kF", pidfConstants.getkF());
     }
 }

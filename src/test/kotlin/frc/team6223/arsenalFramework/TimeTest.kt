@@ -14,10 +14,6 @@ class TimeTest: StringSpec() {
             time.numericValue(TimeUnits.SECONDS) shouldBe .001
         }
 
-        "time should rescale properly" {
-            time.rescale(TimeUnits.SECONDS).time shouldBe .001
-        }
-
         "time should be formatted via toString() correctly" {
             time.toString() shouldBe "1.0 ms"
         }

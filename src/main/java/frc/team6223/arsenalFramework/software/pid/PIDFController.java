@@ -11,6 +11,11 @@ public class PIDFController {
     private PIDFConstants constants;
     private double setPoint;
 
+    public PIDFController(PIDFConstants constants, double setPoint) {
+        this.constants = constants;
+        this.setPoint = setPoint;
+    }
+
     private double currentError = 0.0;
     private double lastError = Double.NaN;
     private double integralGain = 0.0;

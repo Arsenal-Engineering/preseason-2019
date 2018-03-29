@@ -34,7 +34,7 @@ public class ArsenalPDP extends PowerDistributionPanel implements CanLinearInteg
 
     @Override
     public double getIntercept() {
-        return runningLinearIntegration.getYIntercept();
+        return runningLinearIntegration.getIntercept();
     }
 
     @Override

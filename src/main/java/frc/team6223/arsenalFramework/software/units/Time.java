@@ -22,12 +22,12 @@ public class Time extends Unit<TimeUnits> {
     }
 
     @Override
-    public Unit<TimeUnits> unit() {
+    public Time unit() {
         return new Time(this.numericValue(), this.getDefaultScale());
     }
 
     @Override
-    public Unit<TimeUnits> rescale(TimeUnits rep) {
+    public Time rescale(TimeUnits rep) {
         return new Time(this.numericValue(rep), rep);
     }
 
