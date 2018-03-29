@@ -4,7 +4,6 @@ package frc.team6223.robot.subsystem;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team6223.arsenalFramework.hardware.motor.ArsenalTalon;
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode;
-import frc.team6223.arsenalFramework.software.PIDFConstants;
 
 
 public class Climber extends Subsystem {
