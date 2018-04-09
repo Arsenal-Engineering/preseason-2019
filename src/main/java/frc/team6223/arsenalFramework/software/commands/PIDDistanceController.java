@@ -1,18 +1,19 @@
-package frc.team6223.arsenalFramework.software.controllers;
+package frc.team6223.arsenalFramework.software.commands;
 
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team6223.arsenalFramework.drive.ArsenalDrive;
 import frc.team6223.arsenalFramework.drive.ControllerInput;
-import frc.team6223.arsenalFramework.drive.DriveController;
 import frc.team6223.arsenalFramework.drive.DriveControllerOutput;
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode;
+import frc.team6223.arsenalFramework.drive.MovementControllerCommand;
 import frc.team6223.arsenalFramework.software.pid.PIDFConstants;
 import frc.team6223.arsenalFramework.software.pid.PIDFController;
 import frc.team6223.arsenalFramework.software.units.Distance;
 import frc.team6223.arsenalFramework.software.units.DistanceUnits;
 
 
-public class PIDDistanceController implements DriveController {
+public class PIDDistanceController extends MovementControllerCommand {
 
     private PIDFConstants leftSideConstants;
     private PIDFConstants rightSideConstants;
@@ -22,9 +23,10 @@ public class PIDDistanceController implements DriveController {
 
     private double targetDistance;
 
-    public PIDDistanceController(PIDFConstants leftSideConstants, PIDFConstants rightSideConstants,
+    public PIDDistanceController(ArsenalDrive drive, PIDFConstants leftSideConstants, PIDFConstants rightSideConstants,
       double targetDistance)
     {
+        super(drive);
         this.leftSideConstants = leftSideConstants;
         this.rightSideConstants = rightSideConstants;
         this.targetDistance = targetDistance;
@@ -52,7 +54,12 @@ public class PIDDistanceController implements DriveController {
     }
 
     @Override
-    public boolean isMovementCompleted() {
+    protected void interruptedController() {
+
+    }
+
+    @Override
+    public boolean isFinished() {
         return leftSideController.isFinished() && rightSideController.isFinished();
     }
 

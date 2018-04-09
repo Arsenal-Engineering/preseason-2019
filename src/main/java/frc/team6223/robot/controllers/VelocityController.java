@@ -2,9 +2,10 @@ package frc.team6223.robot.controllers;
 
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team6223.arsenalFramework.drive.ArsenalDrive;
 import frc.team6223.arsenalFramework.drive.ControllerInput;
-import frc.team6223.arsenalFramework.drive.DriveController;
 import frc.team6223.arsenalFramework.drive.DriveControllerOutput;
+import frc.team6223.arsenalFramework.drive.MovementControllerCommand;
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode;
 import frc.team6223.arsenalFramework.software.pid.PIDFConstants;
 import frc.team6223.arsenalFramework.software.pid.PIDFController;
@@ -13,13 +14,14 @@ import frc.team6223.arsenalFramework.software.units.DistanceUnits;
 import frc.team6223.arsenalFramework.software.units.TimeUnits;
 
 
-public class VelocityController implements DriveController {
+public class VelocityController extends MovementControllerCommand {
 
     private final double velocityTarget;
     private final PIDFConstants pidfConstants;
     private final PIDFController pidfController;
 
-    public VelocityController(double velocityTarget) {
+    public VelocityController(ArsenalDrive drive, double velocityTarget) {
+        super(drive);
         this.velocityTarget = velocityTarget;
         pidfConstants = new PIDFConstants(1.0, 0.0, 1.0, 1.0);
         pidfController = new PIDFController(pidfConstants, velocityTarget);
@@ -51,7 +53,12 @@ public class VelocityController implements DriveController {
     }
 
     @Override
-    public boolean isMovementCompleted() {
+    protected void interruptedController() {
+
+    }
+
+    @Override
+    public boolean isFinished() {
         return pidfController.isFinished();
     }
 

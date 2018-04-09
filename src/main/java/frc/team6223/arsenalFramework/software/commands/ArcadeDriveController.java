@@ -1,21 +1,23 @@
-package frc.team6223.arsenalFramework.software.controllers;
+package frc.team6223.arsenalFramework.software.commands;
 
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team6223.arsenalFramework.drive.ArsenalDrive;
 import frc.team6223.arsenalFramework.drive.ControllerInput;
-import frc.team6223.arsenalFramework.drive.DriveController;
 import frc.team6223.arsenalFramework.drive.DriveControllerOutput;
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode;
+import frc.team6223.arsenalFramework.drive.MovementControllerCommand;
 import frc.team6223.arsenalFramework.software.units.Distance;
 
 
-public class ArcadeDriveController implements DriveController {
+public class ArcadeDriveController extends MovementControllerCommand {
 
     private Joystick joystick;
     private double scaleFactor = 1.0;
 
-    public ArcadeDriveController(Joystick joystick, double scaleFactor) {
+    public ArcadeDriveController(ArsenalDrive drive, Joystick joystick, double scaleFactor) {
+        super(drive);
         this.joystick = joystick;
         this.scaleFactor = scaleFactor;
     }
@@ -101,7 +103,12 @@ public class ArcadeDriveController implements DriveController {
     }
 
     @Override
-    public boolean isMovementCompleted() {
+    protected void interruptedController() {
+        System.out.println("Arcade Drive Interrupted");
+    }
+
+    @Override
+    protected boolean isFinished() {
         return false;
     }
 

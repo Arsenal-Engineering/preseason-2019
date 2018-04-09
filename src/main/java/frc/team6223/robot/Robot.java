@@ -9,10 +9,8 @@ import frc.team6223.arsenalFramework.hardware.ArsenalNavXMicro;
 import frc.team6223.arsenalFramework.hardware.ArsenalRobot;
 import frc.team6223.arsenalFramework.hardware.motor.ArsenalTalon;
 import frc.team6223.arsenalFramework.operator.ArsenalOperatorInterface;
-import frc.team6223.arsenalFramework.software.commands.MoveDriveTrainCommand;
-import frc.team6223.arsenalFramework.software.controllers.ArcadeDriveController;
-import frc.team6223.arsenalFramework.software.controllers.ForceMovementController;
-import frc.team6223.arsenalFramework.software.controllers.NoMovementController;
+import frc.team6223.arsenalFramework.software.commands.ArcadeDriveController;
+import frc.team6223.arsenalFramework.software.commands.ForceMovementController;
 import frc.team6223.arsenalFramework.software.units.Time;
 import frc.team6223.arsenalFramework.software.units.TimeUnits;
 import frc.team6223.robot.subsystem.Climber;
@@ -37,12 +35,10 @@ public class Robot extends ArsenalRobot {
         SendableChooser<Command> sendableChooser = new SendableChooser<>();
         sendableChooser.addDefault(
           "Move forward for 2 sec",
-          new MoveDriveTrainCommand(
-            new ForceMovementController(
-              new Time(4.0, TimeUnits.SECONDS),
-              0.5, 0.5
-            ),
-            drive
+          new ForceMovementController(
+            drive,
+            new Time(4.0, TimeUnits.SECONDS),
+            0.5, 0.5
           )
         );
         return sendableChooser;
@@ -56,7 +52,6 @@ public class Robot extends ArsenalRobot {
     @Override
     protected void allocateSubsystems(Preferences prefs) {
         drive = new ArsenalDrive(
-          new NoMovementController(),
           new ArsenalNavXMicro(),
           new ArsenalTalon(1),
           new ArsenalTalon(2)
@@ -70,10 +65,7 @@ public class Robot extends ArsenalRobot {
 
     @Override
     protected void setTeleoperatedCommand() {
-        new MoveDriveTrainCommand(
-          new ArcadeDriveController(this.operatorInterface.getPrimaryJoystick(), 1.0),
-          drive
-        ).start();
+          new ArcadeDriveController(drive, this.operatorInterface.getPrimaryJoystick(), 1.0).start();
     }
 
     public void autonomousInit() {

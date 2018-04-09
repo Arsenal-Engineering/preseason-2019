@@ -6,39 +6,33 @@ import frc.team6223.arsenalFramework.hardware.ArsenalNavXMicro;
 import frc.team6223.arsenalFramework.hardware.motor.ArsenalTalon;
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode;
 import frc.team6223.arsenalFramework.logging.Loggable;
+import frc.team6223.arsenalFramework.software.units.Distance;
 
 
 public class ArsenalDrive extends Subsystem implements Loggable {
 
-    private DriveController driveController;
     private ArsenalNavXMicro navXMicro;
     private ArsenalTalon leftController;
     private ArsenalTalon rightController;
 
-    public ArsenalDrive(DriveController driveController, ArsenalNavXMicro navXMicro, ArsenalTalon leftController,
+    public ArsenalDrive(ArsenalNavXMicro navXMicro, ArsenalTalon leftController,
       ArsenalTalon rightController)
     {
-        this.driveController = driveController;
         this.navXMicro = navXMicro;
         this.leftController = leftController;
         this.rightController = rightController;
     }
 
-    public void driveMotors() {
-        DriveControllerOutput output =
-          this.driveController.calculateMotorOutput(
-            new ControllerInput(
-              leftController.getPosition(), leftController.getVelocity(),
-              rightController.getPosition(), rightController.getVelocity(),
-              leftController.getRawPosition(), rightController.getRawPosition(),
-              navXMicro
-            )
-          );
-        leftController.set(output.getControlMode(), output.getLeftOutput());
-        rightController.set(output.getControlMode(), output.getRightOutput());
+    public ControllerInput generateControllerInput() {
+        return new ControllerInput(
+          leftController.getPosition(), leftController.getVelocity(),
+          rightController.getPosition(), rightController.getVelocity(),
+          leftController.getRawPosition(), rightController.getRawPosition(),
+          navXMicro
+        );
     }
 
-    public void manualOverride(double left, double right) {
+    public void setOutput(double left, double right) {
         leftController.set(MotorControlMode.VoltagePercentOut, left);
         rightController.set(MotorControlMode.VoltagePercentOut, right);
     }
@@ -46,6 +40,14 @@ public class ArsenalDrive extends Subsystem implements Loggable {
     public void setEncoderPhasing(boolean left, boolean right) {
         this.leftController.setEncoderPhase(left);
         this.rightController.setEncoderPhase(right);
+    }
+
+    public Distance getLeftControllerDistance() {
+        return leftController.getPosition();
+    }
+
+    public Distance getRightControllerDistance() {
+        return rightController.getPosition();
     }
 
     public void resetEncoders() {
@@ -64,17 +66,6 @@ public class ArsenalDrive extends Subsystem implements Loggable {
     public void dashboardPeriodic() {
         this.leftController.dashboardPeriodic();
         this.rightController.dashboardPeriodic();
-        this.driveController.dashboardPeriodic();
         this.navXMicro.dashboardPeriodic();
-    }
-
-    public DriveController getDriveController() {
-        return driveController;
-    }
-
-    public void setDriveController(DriveController driveController) {
-        this.driveController.stopController();
-        this.driveController = driveController;
-        this.driveController.startController(this.leftController.getPosition(), this.rightController.getPosition());
     }
 }

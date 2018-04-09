@@ -1,17 +1,18 @@
-package frc.team6223.arsenalFramework.software.controllers;
+package frc.team6223.arsenalFramework.software.commands;
 
 
+import frc.team6223.arsenalFramework.drive.ArsenalDrive;
 import frc.team6223.arsenalFramework.drive.ControllerInput;
-import frc.team6223.arsenalFramework.drive.DriveController;
 import frc.team6223.arsenalFramework.drive.DriveControllerOutput;
 import frc.team6223.arsenalFramework.hardware.TimeUtilities;
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode;
+import frc.team6223.arsenalFramework.drive.MovementControllerCommand;
 import frc.team6223.arsenalFramework.software.units.Distance;
 import frc.team6223.arsenalFramework.software.units.Time;
 import frc.team6223.arsenalFramework.software.units.TimeUnits;
 
 
-public class ForceMovementController implements DriveController {
+public class ForceMovementController extends MovementControllerCommand {
 
     private Time deltaTime;
     private double leftMotorOut;
@@ -19,7 +20,8 @@ public class ForceMovementController implements DriveController {
 
     private Time startTime;
 
-    public ForceMovementController(Time deltaTime, double leftMotorOut, double rightMotorOut) {
+    public ForceMovementController(ArsenalDrive drive, Time deltaTime, double leftMotorOut, double rightMotorOut) {
+        super(drive);
         this.deltaTime = deltaTime;
         this.leftMotorOut = leftMotorOut;
         this.rightMotorOut = rightMotorOut;
@@ -42,7 +44,12 @@ public class ForceMovementController implements DriveController {
     }
 
     @Override
-    public boolean isMovementCompleted() {
+    protected void interruptedController() {
+        System.out.println("ForceMotionController was interrupted. Robot in unknown location");
+    }
+
+    @Override
+    public boolean isFinished() {
         return (TimeUtilities.currentTimeSec().minus(startTime).numericValue(TimeUnits.SECONDS) >= deltaTime.numericValue(TimeUnits.SECONDS));
     }
 
