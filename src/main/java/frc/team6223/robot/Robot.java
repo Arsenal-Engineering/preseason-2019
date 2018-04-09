@@ -10,6 +10,7 @@ import frc.team6223.arsenalFramework.hardware.ArsenalNavXMicro;
 import frc.team6223.arsenalFramework.hardware.ArsenalRobot;
 import frc.team6223.arsenalFramework.hardware.motor.ArsenalTalon;
 import frc.team6223.arsenalFramework.operator.ArsenalOperatorInterface;
+import frc.team6223.arsenalFramework.software.NetworkTableUtilities;
 import frc.team6223.arsenalFramework.software.commands.ArcadeDriveController;
 import frc.team6223.arsenalFramework.software.commands.ForceMovementController;
 import frc.team6223.arsenalFramework.software.units.Time;
@@ -81,6 +82,6 @@ public class Robot extends ArsenalRobot {
 
     @Override
     public void dashboardPeriodic() {
-        this.drive.dashboardPeriodic(NetworkTableInstance.getDefault().getTable("SmartDashboard"));
+        this.drive.dashboardPeriodic(NetworkTableUtilities.getRobotTable());
     }
 }

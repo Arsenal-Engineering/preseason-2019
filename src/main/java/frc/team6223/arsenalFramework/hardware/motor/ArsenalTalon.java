@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.team6223.arsenalFramework.software.NetworkTableUtilities;
 import frc.team6223.arsenalFramework.software.units.*;
 
 import java.util.ArrayList;
@@ -88,11 +89,11 @@ public class ArsenalTalon implements ArsenalCANMotorController {
 
     @Override
     public void dashboardPeriodic(NetworkTable table) {
-        SmartDashboard.putNumber("Talon " + this.talonId + " Position", getPosition().numericValue(DistanceUnits.FEET));
-        SmartDashboard.putNumber("Talon " + this.talonId + " Velocity (ft/sec)",
+        NetworkTableUtilities.putItemInTable(table, "Talon " + this.talonId + " Position", getPosition().numericValue(DistanceUnits.FEET));
+        NetworkTableUtilities.putItemInTable(table, "Talon " + this.talonId + " Velocity (ft/sec)",
           getVelocity().numericValue(new RateScaleUnit<>(DistanceUnits.FEET, TimeUnits.SECONDS)));
-        SmartDashboard.putBoolean("Talon " + this.talonId + " Inverted", this.internalMotorController.getInverted());
-        SmartDashboard.putString("Talon " + this.talonId + " MCM", internalControlMode.toString());
+        NetworkTableUtilities.putItemInTable(table, "Talon " + this.talonId + " Inverted", this.internalMotorController.getInverted());
+        NetworkTableUtilities.putItemInTable(table, "Talon " + this.talonId + " MCM", internalControlMode.toString());
     }
 
     public void setEncoderPhase(boolean phase) {

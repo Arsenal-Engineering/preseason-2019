@@ -9,6 +9,7 @@ import frc.team6223.arsenalFramework.drive.ControllerInput;
 import frc.team6223.arsenalFramework.drive.DriveControllerOutput;
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode;
 import frc.team6223.arsenalFramework.drive.MovementControllerCommand;
+import frc.team6223.arsenalFramework.software.NetworkTableUtilities;
 import frc.team6223.arsenalFramework.software.units.Distance;
 
 
@@ -115,8 +116,8 @@ public class ArcadeDriveController extends MovementControllerCommand {
 
     @Override
     public void dashboardPeriodic(NetworkTable table) {
-        SmartDashboard.putString("CurrentController", "ArcadeController");
-        SmartDashboard.putNumber("CurrentControllerMoveValue", joystick.getY());
-        SmartDashboard.putNumber("CurrentControllerRotateValue", joystick.getX());
+        NetworkTableUtilities.putItemInTable(table, "CurrentController", "ArcadeController");
+        NetworkTableUtilities.putItemInTable(table, "CurrentControllerMoveValue", joystick.getY());
+        NetworkTableUtilities.putItemInTable(table, "CurrentControllerRotateValue", joystick.getX());
     }
 }

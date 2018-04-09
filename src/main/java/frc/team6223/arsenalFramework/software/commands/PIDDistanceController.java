@@ -8,6 +8,7 @@ import frc.team6223.arsenalFramework.drive.ControllerInput;
 import frc.team6223.arsenalFramework.drive.DriveControllerOutput;
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode;
 import frc.team6223.arsenalFramework.drive.MovementControllerCommand;
+import frc.team6223.arsenalFramework.software.NetworkTableUtilities;
 import frc.team6223.arsenalFramework.software.pid.PIDFConstants;
 import frc.team6223.arsenalFramework.software.pid.PIDFController;
 import frc.team6223.arsenalFramework.software.units.Distance;
@@ -66,7 +67,7 @@ public class PIDDistanceController extends MovementControllerCommand {
 
     @Override
     public void dashboardPeriodic(NetworkTable table) {
-        SmartDashboard.putString("Current Controller", "DistanceController");
-        SmartDashboard.putNumber("Distance Target", this.targetDistance);
+        NetworkTableUtilities.putItemInTable(table, "Current Controller", "DistanceController");
+        NetworkTableUtilities.putItemInTable(table, "Distance Target", this.targetDistance);
     }
 }

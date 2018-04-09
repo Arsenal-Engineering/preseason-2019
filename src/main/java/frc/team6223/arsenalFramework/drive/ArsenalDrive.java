@@ -8,6 +8,7 @@ import frc.team6223.arsenalFramework.hardware.ArsenalNavXMicro;
 import frc.team6223.arsenalFramework.hardware.motor.ArsenalTalon;
 import frc.team6223.arsenalFramework.hardware.motor.MotorControlMode;
 import frc.team6223.arsenalFramework.logging.Loggable;
+import frc.team6223.arsenalFramework.software.NetworkTableUtilities;
 import frc.team6223.arsenalFramework.software.units.Distance;
 
 
@@ -66,8 +67,8 @@ public class ArsenalDrive extends Subsystem implements Loggable {
 
     @Override
     public void dashboardPeriodic(NetworkTable table) {
-        this.leftController.dashboardPeriodic(NetworkTableInstance.getDefault().getTable("SmartDashboard"));
-        this.rightController.dashboardPeriodic(NetworkTableInstance.getDefault().getTable("SmartDashboard"));
-        this.navXMicro.dashboardPeriodic(NetworkTableInstance.getDefault().getTable("SmartDashboard"));
+        this.leftController.dashboardPeriodic(NetworkTableUtilities.getGeneralSubtable(table, "LeftController"));
+        this.rightController.dashboardPeriodic(NetworkTableUtilities.getGeneralSubtable(table, "RightController"));
+        this.navXMicro.dashboardPeriodic(NetworkTableUtilities.getGeneralSubtable(table, "NavXMicro"));
     }
 }
