@@ -1,6 +1,7 @@
 package frc.team6223.arsenalFramework.software.commands;
 
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team6223.arsenalFramework.drive.ArsenalDrive;
 import frc.team6223.arsenalFramework.drive.ControllerInput;
@@ -64,7 +65,7 @@ public class PIDDistanceController extends MovementControllerCommand {
     }
 
     @Override
-    public void dashboardPeriodic() {
+    public void dashboardPeriodic(NetworkTable table) {
         SmartDashboard.putString("Current Controller", "DistanceController");
         SmartDashboard.putNumber("Distance Target", this.targetDistance);
     }

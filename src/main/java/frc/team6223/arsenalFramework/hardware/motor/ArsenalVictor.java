@@ -3,6 +3,7 @@ package frc.team6223.arsenalFramework.hardware.motor;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class ArsenalVictor implements ArsenalCANMotorController {
     }
 
     @Override
-    public void dashboardPeriodic() {
+    public void dashboardPeriodic(NetworkTable table) {
         SmartDashboard.putBoolean("Victor " + this.victorId + " Inverted", this.isInverted());
         SmartDashboard.putString("Victor " + this.victorId + " MCM", internalControlMode.toString());
     }

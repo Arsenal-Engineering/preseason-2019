@@ -1,6 +1,7 @@
 package frc.team6223.robot.controllers;
 
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team6223.arsenalFramework.drive.ArsenalDrive;
 import frc.team6223.arsenalFramework.drive.ControllerInput;
@@ -63,7 +64,7 @@ public class VelocityController extends MovementControllerCommand {
     }
 
     @Override
-    public void dashboardPeriodic() {
+    public void dashboardPeriodic(NetworkTable table) {
         SmartDashboard.putString("Current Controller", "VelocityController");
         SmartDashboard.putNumber("Velocity Target", velocityTarget);
         SmartDashboard.putNumber("Current Controller kP", pidfConstants.getkP());

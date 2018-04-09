@@ -2,6 +2,7 @@ package frc.team6223.arsenalFramework.hardware;
 
 
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -20,7 +21,7 @@ public class ArsenalNavXMicro extends AHRS implements Gyro, Loggable {
     }
 
     @Override
-    public void dashboardPeriodic() {
+    public void dashboardPeriodic(NetworkTable table) {
         SmartDashboard.putNumber("NavX Yaw", this.getYaw());
         SmartDashboard.putNumber("NavX Pitch", this.getPitch());
         SmartDashboard.putNumber("NavX Roll", this.getRoll());

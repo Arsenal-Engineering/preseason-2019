@@ -1,6 +1,7 @@
 package frc.team6223.arsenalFramework.software.commands;
 
 
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team6223.arsenalFramework.drive.ArsenalDrive;
@@ -113,7 +114,7 @@ public class ArcadeDriveController extends MovementControllerCommand {
     }
 
     @Override
-    public void dashboardPeriodic() {
+    public void dashboardPeriodic(NetworkTable table) {
         SmartDashboard.putString("CurrentController", "ArcadeController");
         SmartDashboard.putNumber("CurrentControllerMoveValue", joystick.getY());
         SmartDashboard.putNumber("CurrentControllerRotateValue", joystick.getX());

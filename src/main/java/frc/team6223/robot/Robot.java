@@ -1,6 +1,7 @@
 package frc.team6223.robot;
 
 
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -80,6 +81,6 @@ public class Robot extends ArsenalRobot {
 
     @Override
     public void dashboardPeriodic() {
-        this.drive.dashboardPeriodic();
+        this.drive.dashboardPeriodic(NetworkTableInstance.getDefault().getTable("SmartDashboard"));
     }
 }

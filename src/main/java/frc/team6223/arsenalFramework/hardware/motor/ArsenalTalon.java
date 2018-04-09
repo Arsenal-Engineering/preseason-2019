@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.team6223.arsenalFramework.software.units.*;
 
@@ -86,7 +87,7 @@ public class ArsenalTalon implements ArsenalCANMotorController {
     }
 
     @Override
-    public void dashboardPeriodic() {
+    public void dashboardPeriodic(NetworkTable table) {
         SmartDashboard.putNumber("Talon " + this.talonId + " Position", getPosition().numericValue(DistanceUnits.FEET));
         SmartDashboard.putNumber("Talon " + this.talonId + " Velocity (ft/sec)",
           getVelocity().numericValue(new RateScaleUnit<>(DistanceUnits.FEET, TimeUnits.SECONDS)));

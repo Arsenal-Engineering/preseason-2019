@@ -1,6 +1,7 @@
 package frc.team6223.arsenalFramework.software.commands;
 
 
+import edu.wpi.first.networktables.NetworkTable;
 import frc.team6223.arsenalFramework.drive.ArsenalDrive;
 import frc.team6223.arsenalFramework.drive.ControllerInput;
 import frc.team6223.arsenalFramework.drive.DriveControllerOutput;
@@ -54,7 +55,7 @@ public class ForceMovementController extends MovementControllerCommand {
     }
 
     @Override
-    public void dashboardPeriodic() {
+    public void dashboardPeriodic(NetworkTable table) {
 
     }
 }

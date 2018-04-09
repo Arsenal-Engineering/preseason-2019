@@ -1,6 +1,8 @@
 package frc.team6223.arsenalFramework.drive;
 
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.team6223.arsenalFramework.hardware.ArsenalNavXMicro;
 import frc.team6223.arsenalFramework.hardware.motor.ArsenalTalon;
@@ -63,9 +65,9 @@ public class ArsenalDrive extends Subsystem implements Loggable {
     protected void initDefaultCommand() {}
 
     @Override
-    public void dashboardPeriodic() {
-        this.leftController.dashboardPeriodic();
-        this.rightController.dashboardPeriodic();
-        this.navXMicro.dashboardPeriodic();
+    public void dashboardPeriodic(NetworkTable table) {
+        this.leftController.dashboardPeriodic(NetworkTableInstance.getDefault().getTable("SmartDashboard"));
+        this.rightController.dashboardPeriodic(NetworkTableInstance.getDefault().getTable("SmartDashboard"));
+        this.navXMicro.dashboardPeriodic(NetworkTableInstance.getDefault().getTable("SmartDashboard"));
     }
 }
